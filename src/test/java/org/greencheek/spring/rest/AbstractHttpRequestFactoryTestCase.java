@@ -88,12 +88,12 @@ public abstract class AbstractHttpRequestFactoryTestCase {
 
 		FileCopyUtils.copy(body, request.getBody());
 		ClientHttpResponse response = request.execute();
-		assertEquals("Invalid status code", HttpStatus.OK, response.getStatusCode());
-		assertTrue("Header not found", response.getHeaders().containsKey(headerName));
+		assertEquals("Status was not 200", HttpStatus.OK, response.getStatusCode());
+		assertTrue("Expected header "+ headerName + " but not found", response.getHeaders().containsKey(headerName));
 		
 		
-		assertTrue("Header value not found", StringUtils.join(response.getHeaders().get(headerName), ", ").contains(headerValue1));
-        assertTrue("Header value not found", StringUtils.join(response.getHeaders().get(headerName), ", ").contains(headerValue2));
+		assertTrue("Header value not found:" +headerValue1, StringUtils.join(response.getHeaders().get(headerName), ", ").contains(headerValue1));
+        assertTrue("Header value not found:" +headerValue2, StringUtils.join(response.getHeaders().get(headerName), ", ").contains(headerValue2));
 
 		byte[] result = FileCopyUtils.copyToByteArray(response.getBody());
 		assertTrue("Invalid body", Arrays.equals(body, result));

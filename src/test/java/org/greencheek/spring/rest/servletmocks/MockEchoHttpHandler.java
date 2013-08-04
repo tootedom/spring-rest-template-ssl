@@ -30,7 +30,7 @@ public class MockEchoHttpHandler extends HttpServlet {
 
 		resp.setHeader("X-PATH", path);
 		resp.setStatus(HttpServletResponse.SC_OK);
-		
+		resp.setContentType("plain/text");
 		try
 		{
 			FileCopyUtils.copy(req.getInputStream(), resp.getOutputStream());

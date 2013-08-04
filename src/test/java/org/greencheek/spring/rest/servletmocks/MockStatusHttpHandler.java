@@ -6,24 +6,17 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class MockStatusHttpHandler extends HttpServlet {
-	private volatile int status;
+	private final int status;
 	
 	public MockStatusHttpHandler(int status)
 	{
-		setStatus(status);
+		this.status = status;
 
 	}
 
 	public void service(HttpServletRequest req, HttpServletResponse resp)
 	{
-		resp.setStatus(getStatus());
-	}
-	
-	public void setStatus(int status) {
-		this.status = status;
+		resp.setStatus(status);
 	}
 
-	public int getStatus() {
-		return status;
-	}
 }

@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class MockRedirectHttpHandler extends HttpServlet {
 
-	private boolean useSeeOtherRedirect;
-	private String redirectUrl;
+	private final boolean useSeeOtherRedirect;
+	private final String redirectUrl;
 	
 	public MockRedirectHttpHandler(String redirectUrl)
 	{
@@ -17,15 +17,15 @@ public class MockRedirectHttpHandler extends HttpServlet {
 	public MockRedirectHttpHandler(String redirectUrl,boolean useSeeOther)
 	{
 		super();
-		setUseSeeOtherRedirect(useSeeOther);
-		setRedirectUrl(redirectUrl);
+        this.useSeeOtherRedirect = useSeeOther;
+		this.redirectUrl = redirectUrl;
 	}
 
 	public void service(HttpServletRequest req, HttpServletResponse resp) {
 		
-		resp.setHeader("Location", getRedirectUrl());
+		resp.setHeader("Location", redirectUrl);
 		
-		if(isUseSeeOtherRedirect())
+		if(useSeeOtherRedirect)
 		{
 			resp.setStatus(HttpServletResponse.SC_SEE_OTHER);				
 		}
@@ -35,19 +35,5 @@ public class MockRedirectHttpHandler extends HttpServlet {
 		}
 	}
 
-	public void setUseSeeOtherRedirect(boolean useSeeOtherRedirect) {
-		this.useSeeOtherRedirect = useSeeOtherRedirect;
-	}
 
-	public boolean isUseSeeOtherRedirect() {
-		return useSeeOtherRedirect;
-	}
-
-	public void setRedirectUrl(String redirectUrl) {
-		this.redirectUrl = redirectUrl;
-	}
-
-	public String getRedirectUrl() {
-		return redirectUrl;
-	}
 }
