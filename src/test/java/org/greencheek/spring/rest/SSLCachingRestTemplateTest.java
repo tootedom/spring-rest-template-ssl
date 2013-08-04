@@ -51,11 +51,11 @@ public class SSLCachingRestTemplateTest {
 	{
 		RestTemplate template = getRestTemplate();
 		
-		String returnData = template.postForObject(BASE_URL + "/echo/{saying}", new String("Body Content"), String.class,"URIPATH");
+		String returnData = template.postForObject(BASE_URL + "/echo/{path}", new String("Body Content"), String.class,"URIPATH");
 		
 		assertEquals("Return Object is not correct","Body Content",returnData);
 		
-		HttpHeaders headers = template.headForHeaders(BASE_URL + "/echo/{saying}","HEADER_VALUE");
+		HttpHeaders headers = template.headForHeaders(BASE_URL + "/echo/{content}","HEADER_VALUE");
 		
 		List<String> values = headers.get("X-PATH");
 		
@@ -70,7 +70,7 @@ public class SSLCachingRestTemplateTest {
     public void testExchange() {
         RestTemplate template = getRestTemplate();
 
-        ResponseEntity<String> entity = template.exchange(BASE_URL + "/methods/{saying}", HttpMethod.DELETE, new HttpEntity<String>(new String("Body Content"), null), String.class, "delete");
+        ResponseEntity<String> entity = template.exchange(BASE_URL + "/methods/{methodname}", HttpMethod.DELETE, new HttpEntity<String>(new String("Body Content"), null), String.class, "delete");
 
         HttpHeaders headers = entity.getHeaders();
 
@@ -85,7 +85,7 @@ public class SSLCachingRestTemplateTest {
     public void testGet() {
         RestTemplate template = getRestTemplate();
 
-        String entity = template.getForObject(BASE_URL + "/echo/{saying}", String.class,"URIPATH");
+        String entity = template.getForObject(BASE_URL + "/echo/{path}", String.class,"URIPATH");
 
         assertEquals("Return Object is not correct","",entity);
 
